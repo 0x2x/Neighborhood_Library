@@ -3,9 +3,9 @@ package org.nigel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainTest {
-    public static ArrayList<BookTest> LibraryBooks = new ArrayList<>();
-    public static ArrayList<BookTest> AvailableLibraryBooks = new ArrayList<>();
+public class Main {
+    public static ArrayList<Book> LibraryBooks = new ArrayList<>();
+    public static ArrayList<Book> AvailableLibraryBooks = new ArrayList<>();
 
     static void main() {
         Scanner scan = new Scanner(System.in);
@@ -21,10 +21,11 @@ public class MainTest {
                 case "books": // Show Available Books
                     booksCommand(scan);
                     break;
-                case "show":
+                case "show": // Show Checked Out books
                     showCommand(scan);
                     break;
-                case "check":
+                case "check": // Check In a book - Prompt the user for the ID of the book they want to check in.
+                    CheckInCommand(scan);
                     break;
             }
 
@@ -35,19 +36,51 @@ public class MainTest {
     private static void init() {
         // registers books
 
-        BookTest book = new BookTest();
-        BookTest bookOne = new BookTest(1242, "isbn_test", "how did Nigel save the universe", true, "Nigel Davey", "Joe");
-        BookTest bookTwo = new BookTest(1242, "isbn_test", "Nigel need for speed", true, "Nigel Davey", "Jimmy");
-        BookTest bookThree = new BookTest(122542, "isbn_test", "How did Nigel defeat the dragon", false, "Nigel Davey", "Bob");
-        BookTest bookFour = new BookTest(122542, "isbn_test", "Nigel the magic dude", false, "Nigel Davey", "Nigel the 3rd");
+        Book book = new Book();
+        Book bookOne = new Book(1242, "isbn_test", "How did Nigel save the universe", true, "", "Joe");
+        Book bookTwo = new Book(1242, "isbn_test", "Nigel need for speed", true, "", "Jimmy");
+        Book bookThree = new Book(122542, "isbn_test", "How did Nigel defeat the dragon", false, "Nigel Davey", "Bob");
+        Book bookFour = new Book(122542, "isbn_test", "Nigel the magic dude", false, "Nigel Davey", "Nigel the 3rd");
+        Book bookFive = new Book(1234, "isbn_001", "Nigel and the Crystal Cavern", true, "Nigel Davey", "Alice");
+        Book bookSix = new Book(1235, "isbn_002", "Nigel and the Time Machine", false, "Nigel Davey", "Tom");
+        Book bookSeven = new Book(1236, "isbn_003", "Nigel and the Lost City", true, "", "Jerry");
+        Book bookEight = new Book(1237, "isbn_004", "Nigel's Galactic Journey", false, "Nigel Davey", "Luna");
+        Book bookNine = new Book(1238, "isbn_005", "Nigel the Pirate King", true, "Nigel Davey", "Tim");
+        Book bookTen = new Book(1239, "isbn_006", "The Legend of Nigel", true, "", "Sara");
+        Book bookEleven = new Book(1240, "isbn_007", "Nigel and the Forbidden Forest", false, "Nigel Davey", "Emma");
+        Book bookTwelve = new Book(1241, "isbn_008", "Nigel: Master of Shadows", true, "Nigel Davey", "Liam");
+        Book bookThirteen = new Book(1243, "isbn_009", "Nigel and the Phoenix Flame", false, "Jimmy Hendrix", "Olivia");
+        Book bookFourteen = new Book(1244, "isbn_010", "Nigel the Hacker", true, "", "Noah");
+        Book bookFifteen = new Book(1245, "isbn_011", "Nigel in the Parallel World", true, "Brue Lee", "Mia");
+        Book bookSixteen = new Book(1246, "isbn_012", "The Return of Nigel", false, "Nigel Davey", "Ava");
+        Book bookSeventeen = new Book(1247, "isbn_013", "Nigel's Final Quest", true, "Nigel Davey", "Lucas");
+        Book bookEighteen = new Book(1248, "isbn_014", "The Rise of Nigel", true, "Nigel Davey", "Isabella");
+        Book bookNineteen = new Book(1249, "isbn_015", "Nigel and the Quantum Code", false, "Nigel Davey", "Ethan");
+        Book bookTwenty = new Book(1250, "isbn_016", "Nigel and the Eternal Flame", true, "Nigel Davey", "Sophia");
 
         LibraryBooks.add(bookOne);
         LibraryBooks.add(bookTwo);
         LibraryBooks.add(bookThree);
         LibraryBooks.add(bookFour);
-        book.setLibary(LibraryBooks); // register library
+        LibraryBooks.add(bookFive);
+        LibraryBooks.add(bookSix);
+        LibraryBooks.add(bookSeven);
+        LibraryBooks.add(bookEight);
+        LibraryBooks.add(bookNine);
+        LibraryBooks.add(bookTen);
+        LibraryBooks.add(bookEleven);
+        LibraryBooks.add(bookTwelve);
+        LibraryBooks.add(bookThirteen);
+        LibraryBooks.add(bookFourteen);
+        LibraryBooks.add(bookFifteen);
+        LibraryBooks.add(bookSixteen);
+        LibraryBooks.add(bookSeventeen);
+        LibraryBooks.add(bookEighteen);
+        LibraryBooks.add(bookNineteen);
+        LibraryBooks.add(bookTwenty);
 
-        System.out.printf(String.valueOf(book.getLibary()));
+
+        book.setLibary(LibraryBooks); // register library
         TextMenu();
     }
     private static void TextMenu() {
@@ -59,11 +92,12 @@ public class MainTest {
         System.out.println("==== By Nigel Davey ====");
         System.out.println();
     }
-    private static BookTest ArrayTest(ArrayList<BookTest> Arr, int ChosenIndex) {
+    private static Book ArrayTest(ArrayList<Book> Arr, int ChosenIndex) {
+        // Helps select a book from a List.
         return Arr.get(ChosenIndex - 1);
     }
-
     private static void booksCommand(Scanner scan) {
+        System.out.println();
         System.out.println("===Available Books===");
         for (int i = 0; i < LibraryBooks.size(); i++) {
             if(LibraryBooks.get(i).getCheckedOut() == false) {
@@ -85,7 +119,7 @@ public class MainTest {
             }
 
             String IndexChoice = scan.nextLine();
-            BookTest IndexSelected = ArrayTest(AvailableLibraryBooks, Integer.parseInt(IndexChoice));
+            Book IndexSelected = ArrayTest(AvailableLibraryBooks, Integer.parseInt(IndexChoice));
             System.out.printf("You have selected: %s by %s. The ISBN is: %s\n", IndexSelected.getTitle(), IndexSelected.getAuthor(), IndexSelected.getIsbn());
 
             System.out.println("What is your name? ");
@@ -100,6 +134,7 @@ public class MainTest {
 
     }
     private static void showCommand(Scanner scan) {
+        System.out.println();
         System.out.println("===Checked-out Books===");
         for (int i = 0; i < LibraryBooks.size(); i++) {
             if(LibraryBooks.get(i).getCheckedOut() == true) {
@@ -107,5 +142,52 @@ public class MainTest {
             }
         }
         System.out.println();
+        System.out.println("===Checked-out Command Options===");
+        System.out.println("\tc - Check in a book");
+        System.out.println("\tx - go back to menu.");
+        System.out.print("Library Command Option: ");
+        String OptionToDoNext = scan.nextLine();
+        if(OptionToDoNext.equalsIgnoreCase("c")) {
+            CheckInCommand(scan);
+        } else if(OptionToDoNext.equalsIgnoreCase("x")) {
+            main();
+        }
+        System.out.println();
+    }
+    private static void CheckInCommand(Scanner scan) {
+        System.out.println();
+        System.out.println("===Checked-in Books===");
+        System.out.println("Whats your name? ");
+        System.out.print("My name is: ");
+        String UserName = scan.nextLine();
+        boolean HasBooks = false;
+
+        for (int i = 0; i < LibraryBooks.size(); i++) {
+            if(LibraryBooks.get(i).getCheckedOutTo().equalsIgnoreCase(UserName)) {
+                System.out.printf("Id: %d | Title: %s | ISBN: %s | Checked out by: %s \n", LibraryBooks.get(i).getId(), LibraryBooks.get(i).getTitle(), LibraryBooks.get(i).getIsbn(), LibraryBooks.get(i).getCheckedOutTo());
+                HasBooks = true;
+                AvailableLibraryBooks.add(LibraryBooks.get(i));
+            }
+        }
+        if(!HasBooks) {
+            System.out.println("You do not have any books checked out.");
+            main();
+        } else {
+            System.out.println("Type in the ISBN you want to check in.");
+            String IsbnSelected = scan.nextLine();
+            Book type = new Book();
+            for (int i = 0; i < AvailableLibraryBooks.size(); i++) {
+                if(AvailableLibraryBooks.get(i).getIsbn().equals(IsbnSelected.strip())) {
+                    type = AvailableLibraryBooks.get(i);
+                }
+            }
+            type.checkIn();
+            System.out.printf("Successfully checked in %s by %s | ISBN: %s", type.getTitle(), type.getAuthor(), type.getIsbn());
+            AvailableLibraryBooks.clear(); // remove data for next use.
+        }
+
+
+
+
     }
 }

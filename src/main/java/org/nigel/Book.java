@@ -2,7 +2,7 @@ package org.nigel;
 
 import java.util.ArrayList;
 
-public class BookTest {
+public class Book {
     private int id;
 
     public int getId() {
@@ -45,11 +45,11 @@ public class BookTest {
         CheckedOutTo = checkedOutTo;
     }
 
-    public ArrayList<BookTest> getLibary() {
+    public ArrayList<Book> getLibary() {
         return Libary;
     }
 
-    public void setLibary(ArrayList<BookTest> libary) {
+    public void setLibary(ArrayList<Book> libary) {
         Libary = libary;
     }
 
@@ -57,7 +57,7 @@ public class BookTest {
     private String title;
     private Boolean isCheckedOut;
     private String CheckedOutTo;
-    private ArrayList<BookTest> Libary;
+    private ArrayList<Book> Libary;
 
     public String getAuthor() {
         return Author;
@@ -70,8 +70,8 @@ public class BookTest {
     private String Author;
 
     //
-    public BookTest() {}
-    public BookTest(int id, String isbn, String title, Boolean isCheckedOut, String CheckedOutTo, String Author) {
+    public Book() {}
+    public Book(int id, String isbn, String title, Boolean isCheckedOut, String CheckedOutTo, String Author) {
         this.id = id;
         this.isbn = isbn;
         this.title = title;
