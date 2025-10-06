@@ -28,6 +28,11 @@ public class Main {
                 case "check": // Check In a book - Prompt the user for the ID of the book they want to check in.
                     CheckInCommand(scan);
                     break;
+                case "exit":
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.printf("Provied argument: %s is invalid", UserArgSplit[0]);
             }
 
         }
