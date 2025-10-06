@@ -9,12 +9,13 @@ public class Main {
 
     static void main() {
         Scanner scan = new Scanner(System.in);
-        init();
-        while(true) {
-            System.out.print("Public Library: ");
+        init(); // registers the provided books& Displays menu
+        while(true) { // forever run
+            System.out.print("Public Library: "); // Give the user a play to type
             String UserArg = scan.nextLine();
-            String[] UserArgSplit = UserArg.split(" ");
-            switch(UserArgSplit[0].toLowerCase()) {
+            String[] UserArgSplit = UserArg.split(" "); // split users arguments in to arrays
+            
+            switch(UserArgSplit[0].toLowerCase()) { // get the first array and convert it to lower case to match.
                 case "home": // The Store Home Screen -
                     TextMenu();
                     break;
@@ -78,7 +79,8 @@ public class Main {
         LibraryBooks.add(bookEighteen);
         LibraryBooks.add(bookNineteen);
         LibraryBooks.add(bookTwenty);
-
+        // you can also register books by doing
+        // LibaryBooks.add(new Book(1250, "isbn_016", "Nigel and the Eternal Flame", true, "Nigel Davey", "Sophia"))
 
         book.setLibary(LibraryBooks); // register library
         TextMenu();
@@ -92,7 +94,7 @@ public class Main {
         System.out.println("==== By Nigel Davey ====");
         System.out.println();
     }
-    private static Book ArrayTest(ArrayList<Book> Arr, int ChosenIndex) {
+    private static Book ArrayTest(ArrayList<Book> Arr, int ChosenIndex) { // this function returns a book so you can start an preview at 1. wtv, 2.test_two | instead of starting at 0
         // Helps select a book from a List.
         return Arr.get(ChosenIndex - 1);
     }
@@ -154,14 +156,16 @@ public class Main {
         }
         System.out.println();
     }
+    
     private static void CheckInCommand(Scanner scan) {
+        String UserName = scan.nextLine();
+        boolean HasBooks = false;
+
         System.out.println();
         System.out.println("===Checked-in Books===");
         System.out.println("Whats your name? ");
         System.out.print("My name is: ");
-        String UserName = scan.nextLine();
-        boolean HasBooks = false;
-
+        
         for (int i = 0; i < LibraryBooks.size(); i++) {
             if(LibraryBooks.get(i).getCheckedOutTo().equalsIgnoreCase(UserName)) {
                 System.out.printf("Id: %d | Title: %s | ISBN: %s | Checked out by: %s \n", LibraryBooks.get(i).getId(), LibraryBooks.get(i).getTitle(), LibraryBooks.get(i).getIsbn(), LibraryBooks.get(i).getCheckedOutTo());
@@ -169,25 +173,24 @@ public class Main {
                 AvailableLibraryBooks.add(LibraryBooks.get(i));
             }
         }
+        
         if(!HasBooks) {
             System.out.println("You do not have any books checked out.");
             main();
         } else {
+            Book bookData = new Book();
+            
             System.out.println("Type in the ISBN you want to check in.");
             String IsbnSelected = scan.nextLine();
-            Book type = new Book();
+            
             for (int i = 0; i < AvailableLibraryBooks.size(); i++) {
                 if(AvailableLibraryBooks.get(i).getIsbn().equals(IsbnSelected.strip())) {
-                    type = AvailableLibraryBooks.get(i);
+                    bookISBN = AvailableLibraryBooks.get(i);
                 }
             }
-            type.checkIn();
-            System.out.printf("Successfully checked in %s by %s | ISBN: %s", type.getTitle(), type.getAuthor(), type.getIsbn());
+            bookData.checkIn();
+            System.out.printf("Successfully checked in %s by %s | ISBN: %s", bookData.getTitle(), bookData.getAuthor(), bookData.getIsbn());
             AvailableLibraryBooks.clear(); // remove data for next use.
         }
-
-
-
-
     }
 }
